@@ -1,0 +1,17 @@
+<h1>
+  {{title}}
+</h1>
+
+<ul>
+    <li *ngFor="let item of posts | async">
+        <span> {{item.id}} </span>
+        <span> {{item.title}} </span>
+    </li>
+
+    <hr/>
+
+    <li *ngFor="let item of real_posts">
+        <span> {{item.id}} </span>
+        <span> {{item.title}} </span>
+    </li>
+</ul>
