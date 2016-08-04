@@ -11,7 +11,7 @@ import 'rxjs/Rx';
   styleUrls: ['app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'app works!';
+  title = 'Funciona!';
   private url = 'http://jsonplaceholder.typicode.com/posts'
   private url2 = 'http://jsonplaceholder.typicode.com/comments'
 
@@ -24,7 +24,8 @@ export class AppComponent implements OnInit {
   };
 
   ngOnInit() {
-      console.log(`La url es esta ${this.url}`);
+      //testing es2015 string templates
+      console.log(`La url es: ${this.url}`);
 
       // -- WITH OBSERVABLES --
       //this.posts = this.http.get(this.url)
@@ -73,14 +74,13 @@ export class AppComponent implements OnInit {
           url: this.url2,
           method: 'post',
           headers: new Headers({
-              'x-custom-header': 'holaz'
+              'x-custom-header': 'hola'
           })
       }).subscribe();
   }
 
   private extractData(res: Response) {
       let body = res.json();
-      //return body.data || { };
       return body;
   }
 }
