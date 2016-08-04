@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Request, RequestOptions, RequestMethod, Headers } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
@@ -13,6 +13,7 @@ import 'rxjs/Rx';
 export class AppComponent implements OnInit {
   title = 'app works!';
   private url = 'http://jsonplaceholder.typicode.com/posts'
+  private url2 = 'http://jsonplaceholder.typicode.com/comments'
 
   //posts: Observable<any>;
   posts: Promise<any>;
@@ -37,6 +38,44 @@ export class AppComponent implements OnInit {
                             .then(this.extractData);
 
       this.posts.then(data => this.real_posts = data);
+
+      this.sendCustomFullRequest();
+
+      this.sendCustomEasyRequest();
+  }
+
+  private sendCustomFullRequest() {
+      let requestMethod: RequestMethod = RequestMethod.Get;
+
+      let headers = new Headers();
+      headers.append('X-CUSTOM-PEPE','pepe-power');
+
+      let headers2 = new Headers({'Accept': 'application/json'});
+
+      let options = new RequestOptions({
+          method: requestMethod,
+          url: this.url2,
+          search: 'active=1',
+          headers: new Headers({
+              'Accept': 'wtf/pdf2',
+              'X-CUSTOM-PEPE': 'pepe-power'
+          })
+      });
+
+      let req: Request = new Request(options);
+
+
+      this.http.request(req).subscribe(data => console.log(data.json()));
+  }
+
+  private sendCustomEasyRequest() {
+      this.http.get(this.url, {
+          url: this.url2,
+          method: 'post',
+          headers: new Headers({
+              'x-custom-header': 'holaz'
+          })
+      }).subscribe();
   }
 
   private extractData(res: Response) {
